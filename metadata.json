@@ -1,0 +1,6 @@
+{
+  "name": "Transaction Mutex and Ranking System",
+  "description": "A high-performance demonstration of API transaction processing with per-user mutex locking, full idempotency key guards, and dynamic multi-factor user rankings.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
