@@ -114,4 +114,5 @@ In Node.js, while the event loop prevents thread-level parallel hazards, **async
 ## 📈 Technical Implementation Details & Trade-offs
 
 1.  **In-Memory Store**: State is stored in standard memory structures (`Map` and Arrays) for high performance and clean conceptual isolation. In a distributed multi-instance deployment, this would be backed by **Redis** (for locks and idempotency caches) and a relational database like **PostgreSQL** (to guarantee atomic ACID updates).
+
 2.  **Optimistic vs. Pessimistic Locking**: We chose pessimistic locks (`acquireLock`/`releaseLock`) for simplicity and reliability. In environments with exceptionally high write volumes, optimistic concurrency control (checking schema version/timestamp at write time) could be used to reduce lock overhead.
