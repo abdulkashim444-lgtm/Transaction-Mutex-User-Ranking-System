@@ -4,7 +4,6 @@ A robust full-stack demonstration of transaction validation, concurrency protect
 
 ---
 
-
 ## 🚀 How to Run the Project
 
 1. **Install Dependencies**
@@ -96,11 +95,13 @@ To prevent malicious players from cheating the leaderboard (e.g. scripts submitt
 
 ## 🔐 How Duplicate Requests and Concurrency are Prevented
 
+
 ### 1. Idempotency Key Engine (Duplicate Prevention)
 *   Every `POST /api/transaction` request requires an `idempotencyKey` parameter.
 *   The server maintains a fast key-value store mapping `idempotencyKey` to the historical status code and response payload.
 *   Upon receipt of a transaction, the server performs a lookup. If a key is present, it skips the execution phase and immediately returns the cached response with a customized header `X-Cache-Lookup: HIT`.
 *   This ensures that networks failures, double-clicks, or retry logic in clients **never** trigger dual deductions or credits.
+
 
 ### 2. Per-User Mutex Locks (Concurrency Protection)
 In Node.js, while the event loop prevents thread-level parallel hazards, **asynchronous operations (I/O, database delay) can introduce severe interleaving vulnerabilities**.
@@ -111,8 +112,6 @@ In Node.js, while the event loop prevents thread-level parallel hazards, **async
 *   Once the lock is acquired, the balance check, delay, balance update, and logging are completed in complete isolation before the lock is released. This guarantees state consistency under extreme concurrent pressure.
 
 ---
-
-
 
 ## 📈 Technical Implementation Details & Trade-offs
 
